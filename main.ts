@@ -39,7 +39,7 @@ d d 8 8 8 8 8 6 8 8 8 8 8 d d d
 `
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
-    info.changeScoreBy(1)
+    info.changeScoreBy(2)
     otherSprite.destroy(effects.hearts, 100)
     music.baDing.play()
 })
@@ -88,6 +88,9 @@ controller.moveSprite(mySprite)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
 info.setLife(3)
+game.onUpdate(function () {
+	
+})
 // every half a second spawn a fish
 game.onUpdateInterval(500, function () {
     FishChoice = Math.randomRange(0, 2)
