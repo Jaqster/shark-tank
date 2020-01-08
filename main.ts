@@ -43,8 +43,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     otherSprite.destroy(effects.hearts, 100)
     music.baDing.play()
 })
+let sharkie: Sprite = null
 let projectile: Sprite = null
-let FruitChoice = 0
+let FishChoice = 0
 scene.setBackgroundColor(9)
 tiles.setTilemap(tiles.createTilemap(
             hex`10000c000e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0304040404040404040404040404040600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`,
@@ -88,8 +89,8 @@ mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
 info.setLife(3)
 game.onUpdateInterval(500, function () {
-    FruitChoice = Math.randomRange(0, 2)
-    if (FruitChoice == 0) {
+    FishChoice = Math.randomRange(0, 2)
+    if (FishChoice == 0) {
         projectile = sprites.createProjectileFromSide(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . c c c c c c . . . 
@@ -108,7 +109,7 @@ f f f f f 1 1 1 b b 5 5 5 f . .
 . . . . . f f f 5 5 5 5 5 f . . 
 . . . . . . . . f f f f f f . . 
 `, -50, 0)
-    } else if (FruitChoice == 1) {
+    } else if (FishChoice == 1) {
         projectile = sprites.createProjectileFromSide(img`
 . . . . . . . . c c c c . . . . 
 . . . . . . c c d d d d c . . . 
@@ -149,4 +150,26 @@ f 4 4 4 4 4 1 4 4 f 4 4 d f f f
     }
     projectile.setPosition(160, Math.randomRange(10, 120))
     projectile.setKind(SpriteKind.Food)
+})
+game.onUpdateInterval(1000, function () {
+    sharkie = sprites.createProjectileFromSide(img`
+. . . . . . . . . . . . . . . . . . . . c c f f f . . . . . . . . . . . 
+. . . . . . . . . . f f f f f f f f f c b b b b f . . . . . . . . . . . 
+. . . . . . . . . f b b b b b b b b b f f f b f . . . . . . . . . . . . 
+. . . . . . . . . f b b 1 1 1 b f f b b b b f f . . . . . . . . . . . . 
+. . . . . . . . . f b 1 1 1 1 1 f f b b b b b c f f . . . . . . . . . . 
+. . . . . . . . . f 1 c c c c 1 1 b b c b c b c c c f . . . . . . . . . 
+. . . . . . . . . . f c 1 c 1 c 1 b b b c b c b c c c f . . . c c c c c 
+. . . . . . . . . . . . c 3 3 3 1 b b b c b c b c c c c f c c d d b b c 
+. . . . . . . . . . . c 3 3 3 c 1 b b b b b b b c c c c c b d d b c c . 
+. . . . . . . . . . . c 3 3 1 c 1 1 b b b b b c c c c c c c b b c c . . 
+. . . . . . . . . . c c 1 3 c 1 1 1 b b b b c c c c c c f f b c c f . . 
+. . . . . . . . . . c 1 1 1 1 1 1 c b b b c c c c c b b c . f c c f . . 
+. . . . . . . . . . . c c 1 1 1 1 c b b b f d d d d d c . . f b b c f . 
+. . . . . . . . . . . . . c c c f f b d b b f d d d c . . . . f b b f . 
+. . . . . . . . . . . . . . . . . . f b d b b f c c . . . . . . f b b f 
+. . . . . . . . . . . . . . . . . . . f f f f f . . . . . . . . . f f f 
+`, -50, 0)
+    sharkie.setPosition(160, Math.randomRange(10, 120))
+    sharkie.setKind(SpriteKind.Enemy)
 })
