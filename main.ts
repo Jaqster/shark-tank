@@ -87,7 +87,9 @@ let mySprite = sprites.create(img`
 controller.moveSprite(mySprite)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
-info.setLife(3)
+info.setLife(4)
+// every half a second spawn one of three types of
+// fish
 game.onUpdateInterval(500, function () {
     FishChoice = Math.randomRange(0, 2)
     if (FishChoice == 0) {
