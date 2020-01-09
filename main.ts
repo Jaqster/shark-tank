@@ -43,6 +43,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     otherSprite.destroy(effects.hearts, 100)
     music.baDing.play()
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    otherSprite.destroy(effects.fire, 100)
+    music.powerDown.play()
+})
 let sharkie: Sprite = null
 let projectile: Sprite = null
 let FishChoice = 0
@@ -88,9 +93,6 @@ controller.moveSprite(mySprite)
 mySprite.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
 info.setLife(3)
-game.onUpdate(function () {
-	
-})
 // every half a second spawn a fish
 game.onUpdateInterval(500, function () {
     FishChoice = Math.randomRange(0, 2)
